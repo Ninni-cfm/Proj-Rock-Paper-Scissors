@@ -1,0 +1,10 @@
+// Hard reset, no margins and paddings for all elements
+* {
+    margin: 0;
+    padding: 0;
+}
+
+// Scrolling should always be smooth...
+html {
+    scroll-behavior: smooth;
+}

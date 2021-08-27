@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: waltograph42;
+  src: url(../font/waltograph42.ttf);
+}
+@font-face {
+  font-family: waltographui;
+  src: url(../font/waltographUI.ttf);
+}
+html {
+  font-family: waltograph42;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+body {
+  min-height: 100vh;
+  color: white;
+  background: url("../img/mickey-mouse-bg.jpg") top left/cover no-repeat;
+}
+
+.game {
+  width: 500px;
+  margin: auto auto;
+  display: flex;
+  flex-direction: column;
+  /* Chrome, Safari, Edge, Opera */
+  /* Firefox */
+}
+.game h1, .game h2 {
+  font-size: 2.5em;
+  font-weight: 300;
+  text-align: center;
+}
+.game h2 {
+  font-size: 2em;
+}
+.game p {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+}
+.game input {
+  outline: none;
+  border: 5px solid silver;
+  border-radius: 0.5rem;
+  text-shadow: 0 0 0.5rem #888;
+  vertical-align: baseline;
+}
+.game input:hover {
+  box-shadow: 0px 0px 20px silver;
+}
+.game input:focus {
+  box-shadow: 0px 0px 20px silver;
+}
+.game input::-webkit-outer-spin-button,
+.game input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.game input[type=number] {
+  -moz-appearance: textfield;
+}
+.gameSetup {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.gameSetupRounds {
+  display: grid;
+  justify-content: grid-start;
+  align-items: start;
+  grid-template-columns: 1fr 1fr;
+}
+.gameSetupRounds > p:nth-of-type(odd) {
+  margin-left: 50%;
+}
+.gameSetupRounds > p:last-of-type {
+  margin-left: 25%;
+}
+.gameSetupRounds input[type=radio] {
+  transform: scale(2);
+}
+.gameSetupRoundsCustom {
+  margin-left: 0;
+  grid-column: 1/3;
+}
+.gameSetupRoundsCustom input[type=number] {
+  width: 20%;
+  padding: 0.25rem;
+  font-size: 1.5rem;
+  text-align: right;
+  outline: none;
+}
+.gameSetup input[type=button] {
+  align-self: center;
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 2rem;
+}
+.game .player-move {
+  width: 100px;
+  height: 100px;
+  padding: 25px;
+  border: 5px solid silver;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.game .player-move > img {
+  width: 100%;
+}
+.game .gamePlayComputer > img {
+  /* transform: rotateY(180deg); */
+  height: 375px;
+}
+.game input {
+  font-family: waltographui;
+  font-size: 1rem;
+  font-variant: small-caps;
+}
+.game .collapsed {
+  display: none;
+}
