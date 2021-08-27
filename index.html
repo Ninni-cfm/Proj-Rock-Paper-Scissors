@@ -32,17 +32,22 @@
 
             <div class="gameSetupRounds">
 
-                <p class="gameSetupRadio"> <input type="radio" name="radioRounds" id="rbRounds5"> <span>&nbsp;5</span>
+                <p class="gameSetupRadio"> <input type="radio" name="radioRounds" id="rbRounds5"
+                        onclick="checkChanged(false)"> <span>&nbsp;5</span>
                 </p>
-                <p class="gameSetupRadio"> <input type="radio" name="radioRounds" id="rbRounds10"><span>&nbsp;10</span>
+                <p class="gameSetupRadio"> <input type="radio" name="radioRounds" id="rbRounds10"
+                        onclick="checkChanged(false)"><span>&nbsp;10</span>
                 </p>
-                <p class="gameSetupRadio"> <input type="radio" name="radioRounds" id="rbRounds15"><span>&nbsp;15</span>
+                <p class="gameSetupRadio"> <input type="radio" name="radioRounds" id="rbRounds15"
+                        onclick="checkChanged(false)"><span>&nbsp;15</span>
                 </p>
-                <p class="gameSetupRadio"> <input type="radio" name="radioRounds" id="rbRounds20"><span>&nbsp;20</span>
+                <p class="gameSetupRadio"> <input type="radio" name="radioRounds" id="rbRounds20"
+                        onclick="checkChanged(false)"><span>&nbsp;20</span>
                 </p>
 
                 <p class="gameSetupRoundsCustom">
-                    <input type="radio" name="radioRounds" id="rbCustom"><span>&nbsp;Rounds</span>
+                    <input type="radio" name="radioRounds" id="rbCustom"
+                        onclick="checkChanged(true)"><span>&nbsp;Rounds</span>
                     <input type="number" name="numCustomRounds" id="numCustomRounds" min="1" value="50"
                         onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 </p>
@@ -61,15 +66,20 @@
         <section id="gamePlay" class="section gamePlay">
 
             <!--  -->
-            <div class="gamePlayActive">
-
-                <h2>Game has started!<br>Good luck!</h2>
+            <div class="gamePlayStatus">
 
                 <!-- show how many rounds are already played -->
-                <p id="lblGameProgress"></p>
+                <p id="lblGameProgress">&nbsp;</p>
 
-                <!-- a chance for the player to give up a hopeless game -->
-                <input type="button" value="Give Up" onclick="playerSurrenders()">
+                <!-- show how many rounds are already played -->
+                <p>Player</p>
+                <p>-</p>
+                <p>Mickey</p>
+                <p id="lblPlayerPoints">0</p>
+                <p>-</p>
+                <p id="lblComputerPoints">0</p>
+
+
 
             </div>
 
@@ -89,6 +99,10 @@
                     <img src="assets/img/mickey-mouse.png" alt="">
                 </div>
             </div>
+
+            <!-- a chance for the player to give up a hopeless game -->
+            <!-- <input type="button" value="Give Up" onclick="playerSurrenders()"> -->
+
             <!-- Container for showing game messages -->
             <div id="gamePlayMessages" class="gamePlayMessages"></div>
 

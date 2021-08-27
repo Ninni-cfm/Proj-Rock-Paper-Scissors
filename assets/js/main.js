@@ -5,6 +5,10 @@ const gamePlay = document.getElementById('gamePlay');
 // constant definitions for single UI elements
 const numCustomRounds = document.getElementById('numCustomRounds');
 
+const lblGameProgress = document.getElementById('lblGameProgress');
+const lblPlayerPoints = document.getElementById('lblPlayerPoints');
+const lblComputerPoints = document.getElementById('lblComputerPoints');
+
 // constant definitions for the moves
 const rock = 0;
 const paper = 1;
@@ -34,6 +38,15 @@ function initialize() {
     // first setup rounds ...
     showHideElement(gameSetup, visible);
     showHideElement(gamePlay, hidden);
+}
+
+
+//****************************************************************************
+function checkChanged(numberFieldEnabled) {
+
+    console.log(numberFieldEnabled);
+
+    numCustomRounds.disabled = !numberFieldEnabled;
 }
 
 
@@ -96,7 +109,7 @@ function makeMove(playerMove) {
 
         default:
             // illegal move, should never happen! But who knows...
-            console.log("%cWTF! I'm Lost!", "color: red;");
+            console.log("%cWTF! I'm lost!", "color: red;");
             console.log("playerMove:", playerMove)
             return;
     }
@@ -165,7 +178,9 @@ function showResult(result) {
         case 1: console.log("Player wins!"); break;
     }
 
-    console.log(`Round ${playedRounds}: Player - ${playerPoints} : ${computerPoints} - Computer`);
+    lblGameProgress.innerHTML = `Round ${playedRounds}`;
+    lblPlayerPoints.innerHTML = playerPoints;
+    lblComputerPoints.innerHTML = computerPoints;
 
     // game hasn't ended...
     if (playedRounds < maxRounds) return;
@@ -184,7 +199,6 @@ function showResult(result) {
 
 //****************************************************************************
 function showEndGame() {
-
 
     // finally show the setup screen again
     showHideElement(gameSetup, visible);
