@@ -24,7 +24,7 @@
     <h2>(Disney Edition)</h2>
 
     <!-- ========================================================================== -->
-    <form class="game">
+    <form class="game" onsubmit="return false;">
 
 
         <section id="gameSetup" class="section gameSetup">
@@ -83,15 +83,19 @@
 
             <div class="gamePlayAction">
                 <div class="gamePlayActionPlayer">
-                    <div class="player-move" onclick="makeMove('rock')">
+
+                    <button id="btnRock" class="player-move" onclick="makeMove('rock')">
                         <img src="assets/img/disney-rock-left-colored.png" alt="rock">
-                    </div>
-                    <div class="player-move" onclick="makeMove('paper')">
+                    </button>
+
+                    <button id="btnPaper" class="player-move" onclick="makeMove('paper')">
                         <img src="assets/img/disney-paper-left-colored.png" alt="paper">
-                    </div>
-                    <div class="player-move" onclick="makeMove('scissors')">
+                    </button>
+
+                    <button id="btnScissors" class="player-move" onclick="makeMove('scissors')">
                         <img src="assets/img/disney-scissors-left-colored.png" alt="scissors">
-                    </div>
+                    </button>
+
                 </div>
                 <div class="gamePlayActionComputer">
                     <img id="imgComputerMove" src="assets/img/mickey-mouse.png" alt="">
@@ -102,16 +106,10 @@
             <!-- <input type="button" value="Give Up" onclick="playerSurrenders()"> -->
 
             <!-- Container for showing game messages -->
-            <div id="gamePlayMessages" class="gamePlayMessages"></div>
+            <p id="gamePlayMessages" class="gamePlayMessages"></p>
 
         </section>
     </form>
-
-
-
-
-
-
 
     <script src="assets/js/main.js"></script>
 </body>

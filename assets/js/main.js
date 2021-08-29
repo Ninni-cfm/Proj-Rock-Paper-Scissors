@@ -20,6 +20,11 @@ const lblComputerPoints = document.getElementById('lblComputerPoints');
 
 const imgComputerMove = document.getElementById('imgComputerMove');
 
+const btnRock = document.getElementById('btnRock');
+const btnPaper = document.getElementById('btnPaper');
+const btnScissors = document.getElementById('btnScissors');
+
+
 // variable definitions for the game
 let maxRounds = 5;
 let playedRounds = 0;
@@ -61,12 +66,12 @@ function checkChanged(numberFieldEnabled) {
 // The party begins...
 function startGame() {
 
-    maxRounds = getNumberOfRounds();
+    getNumberOfRounds();
     playedRounds = 1;
     playerPoints = 0;
     computerPoints = 0;
 
-    document.body.style.background = "url('assets/img/background.png') top left/cover no-repeat"
+    document.body.style.background = "url('assets/img/background.png') center/cover no-repeat"
 
     showHideElement(gameSetup, hidden);
     showHideElement(gamePlay, visible);
@@ -77,6 +82,7 @@ function startGame() {
     lblComputerPoints.innerHTML = computerPoints;
 
     imgComputerMove.src = 'assets/img/mickey-mouse.png'
+    clearMoves();
 }
 
 
@@ -92,8 +98,6 @@ function getNumberOfRounds() {
     if (document.getElementById('rbCustom').checked) {
         maxRounds = numCustomRounds.value;
     }
-
-    return maxRounds;
 }
 
 //****************************************************************************
@@ -105,6 +109,7 @@ function makeMove(playerMove) {
 
     let computerMove = getComputerMove();
     console.log(computerMove);
+
 
     if (computerMove == rock) {
         imgComputerMove.src = 'assets/img/mickey-mouse-rock.png'
@@ -137,9 +142,27 @@ function makeMove(playerMove) {
         default:
             // illegal move, should never happen! But who knows...
             console.log("%cWTF! I'm lost!", "color: red;");
-            console.log("playerMove:", playerMove)
+            console.log("playerMove:", playerMove);
             return;
     }
+
+    let col = result == -1 ? "red" : (result == 0 ? "orange" : "green");
+
+    switch (playerMove) {
+        case rock:
+            getElement("btnRock").style.background = col;
+            break;
+        case paper:
+            getElement("btnPaper").style.background = col;
+            break;
+        case scissors:
+            getElement("btnScissors").style.background = col;
+            break;
+        default:
+            break;
+    }
+
+
 
     // add result to points
     if (result != 0) result > 0 ? playerPoints++ : computerPoints++;
@@ -197,6 +220,7 @@ function getComputerMove() {
 
 //****************************************************************************
 async function showResult(result) {
+
     // a simple output:
     switch (result) {
         case -1: console.log("Computer wins!"); break;
@@ -209,13 +233,15 @@ async function showResult(result) {
     lblPlayerPoints.innerHTML = playerPoints;
     lblComputerPoints.innerHTML = computerPoints;
 
+    await sleep(3000);
+    clearMoves();
     // game hasn't ended...
     if (playedRounds <= maxRounds) return;
 
     // TODO: show final game result
     let text = "it's a Draw!";
     if (playerPoints != computerPoints)
-        text = playerPoints > computerPoints ? 'Player has won!' : 'Mickey has won!';
+        text = (playerPoints > computerPoints ? 'Player' : 'Mickey') + ' has won!';
 
     lblGameProgress.innerHTML = `After ${maxRounds} Rounds ${text}`;
 
@@ -283,4 +309,16 @@ function speak(textToSpeak) {
 }
 
 
+//********************************************************************************************
+// function clearMoves(): clear background of the three possible moves
+function clearMoves() {
+    btnRock.style.background =
+        btnPaper.style.background =
+        btnScissors.style.background = "transparent";
 
+    imgComputerMove.src = 'assets/img/mickey-mouse.png'
+}
+
+function lockMoves() {
+
+}

@@ -37,6 +37,12 @@ h2 {
   font-size: 2em;
 }
 
+p {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  -webkit-text-stroke: 1px black;
+}
+
 .game {
   width: 500px;
   margin: auto auto;
@@ -44,10 +50,6 @@ h2 {
   flex-direction: column;
   /* Chrome, Safari, Edge, Opera */
   /* Firefox */
-}
-.game p {
-  padding: 0.5rem;
-  font-size: 1.5rem;
 }
 .game input {
   outline: none;
@@ -112,7 +114,7 @@ h2 {
   align-items: start;
 }
 .gamePlayStatus p {
-  font-size: 1.5rem;
+  -webkit-text-stroke: unset;
 }
 .gamePlayStatus #lblGameProgress {
   grid-column: 1/-1;
@@ -136,10 +138,11 @@ h2 {
   align-self: start;
 }
 .gamePlayActionPlayer .player-move {
-  width: 100px;
-  height: 100px;
+  width: 125px;
+  height: 125px;
   margin: 10px;
   padding: 15px;
+  background-color: transparent;
   border: 5px solid silver;
   border-radius: 50%;
   display: flex;
