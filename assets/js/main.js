@@ -7,6 +7,9 @@ const rock = 0;
 const paper = 1;
 const scissors = 2;
 
+const moveNames = ["Rock", "Paper", "Scissors"];
+
+
 // constant definitions for UI container elements
 const gameSetup = document.getElementById('gameSetup');
 const gamePlay = document.getElementById('gamePlay');
@@ -24,6 +27,7 @@ const btnRock = document.getElementById('btnRock');
 const btnPaper = document.getElementById('btnPaper');
 const btnScissors = document.getElementById('btnScissors');
 
+const gamePlayMessages = document.getElementById('gamePlayMessages');
 
 // variable definitions for the game
 let maxRounds = 5;
@@ -83,6 +87,8 @@ function startGame() {
 
     imgComputerMove.src = 'assets/img/mickey-mouse.png'
     clearMoves();
+    lockMoves(false);
+
 }
 
 
@@ -103,13 +109,14 @@ function getNumberOfRounds() {
 //****************************************************************************
 function makeMove(playerMove) {
 
-    let result = 0; computerPoints
+    let result = 0;
 
     playerMove = eval(playerMove);
 
     let computerMove = getComputerMove();
-    console.log(computerMove);
 
+    // lock buttons
+    lockMoves(true);
 
     if (computerMove == rock) {
         imgComputerMove.src = 'assets/img/mickey-mouse-rock.png'
@@ -121,10 +128,10 @@ function makeMove(playerMove) {
         imgComputerMove.src = 'assets/img/mickey-mouse.png'
     }
 
-
     switch (true) {
         case (playerMove == computerMove):
             // draw (default): result = 0;
+
             break;
 
         case (playerMove == rock):
@@ -150,28 +157,23 @@ function makeMove(playerMove) {
 
     switch (playerMove) {
         case rock:
-            getElement("btnRock").style.background = col;
+            btnRock.style.background = col;
             break;
         case paper:
-            getElement("btnPaper").style.background = col;
+            btnPaper.style.background = col;
             break;
         case scissors:
-            getElement("btnScissors").style.background = col;
+            btnScissors.style.background = col;
             break;
         default:
             break;
     }
 
-
-
     // add result to points
     if (result != 0) result > 0 ? playerPoints++ : computerPoints++;
 
     // remember player's move
-    // playerMoves[playerMove]++;
-
-    // increase the number of played rounds    
-    playedRounds++;
+    playerMoves[playerMove]++;
 
     // show the result of this round
     showResult(result);
@@ -221,22 +223,22 @@ function getComputerMove() {
 //****************************************************************************
 async function showResult(result) {
 
-    // a simple output:
-    switch (result) {
-        case -1: console.log("Computer wins!"); break;
-        case 0: console.log("Draw!"); break;
-        case 1: console.log("Player wins!"); break;
-    }
-
-    lblGameProgress.innerHTML = `Round ${playedRounds} of ${maxRounds}`;
-
     lblPlayerPoints.innerHTML = playerPoints;
     lblComputerPoints.innerHTML = computerPoints;
 
     await sleep(3000);
     clearMoves();
     // game hasn't ended...
-    if (playedRounds <= maxRounds) return;
+    if (playedRounds < maxRounds) {
+        // increase the number of played rounds    
+        playedRounds++;
+
+        lblGameProgress.innerHTML = `Round ${playedRounds} of ${maxRounds}`;
+
+        // unlock buttons
+        lockMoves(false);
+        return;
+    }
 
     // TODO: show final game result
     let text = "it's a Draw!";
@@ -264,6 +266,7 @@ function getElement(id) {
     return document.getElementById(id);
 }
 
+//****************************************************************************
 function showHideElement(element, isVisible) {
 
     // element is visible, nothing to do...
@@ -281,6 +284,24 @@ function showHideElement(element, isVisible) {
         element.style.display = element["save"];
         element["save"] = null;
     }
+}
+
+
+//********************************************************************************************
+// function clearMoves(): clear background of the three possible moves
+function clearMoves() {
+
+    btnRock.style.background = btnPaper.style.background = btnScissors.style.background = "transparent";
+    imgComputerMove.src = 'assets/img/mickey-mouse.png'
+}
+
+
+//********************************************************************************************
+// function lockMoves(lockState): enable or disables the three possible moves
+// used to prevent selection of a move while the result is displayed
+function lockMoves(lockState) {
+
+    btnRock.disabled = btnPaper.disabled = btnScissors.disabled = lockState;
 }
 
 
@@ -309,16 +330,3 @@ function speak(textToSpeak) {
 }
 
 
-//********************************************************************************************
-// function clearMoves(): clear background of the three possible moves
-function clearMoves() {
-    btnRock.style.background =
-        btnPaper.style.background =
-        btnScissors.style.background = "transparent";
-
-    imgComputerMove.src = 'assets/img/mickey-mouse.png'
-}
-
-function lockMoves() {
-
-}
