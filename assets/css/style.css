@@ -22,9 +22,19 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  height: 100vh;
   color: white;
-  background: url("../img/mickey-mouse-bg.jpg") top left/cover no-repeat;
+}
+
+h1, h2 {
+  font-size: 2.5em;
+  font-weight: 300;
+  text-align: center;
+  -webkit-text-stroke: 1px black;
+}
+
+h2 {
+  font-size: 2em;
 }
 
 .game {
@@ -34,15 +44,6 @@ body {
   flex-direction: column;
   /* Chrome, Safari, Edge, Opera */
   /* Firefox */
-}
-.game h1, .game h2 {
-  font-size: 2.5em;
-  font-weight: 300;
-  text-align: center;
-  -webkit-text-stroke: 1px black;
-}
-.game h2 {
-  font-size: 2em;
 }
 .game p {
   padding: 0.5rem;
@@ -108,9 +109,14 @@ body {
 .gamePlayStatus {
   display: grid;
   grid-template-columns: 3fr 1fr 3fr;
+  align-items: start;
+}
+.gamePlayStatus p {
+  font-size: 1.5rem;
 }
 .gamePlayStatus #lblGameProgress {
   grid-column: 1/-1;
+  justify-self: center;
 }
 .gamePlayStatus p:nth-of-type(2),
 .gamePlayStatus p:nth-of-type(5) {
@@ -120,18 +126,40 @@ body {
 .gamePlayStatus p:nth-of-type(6) {
   justify-self: center;
 }
-.game .player-move {
+.gamePlayAction {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-content: start;
+}
+.gamePlayActionPlayer {
+  grid-column: 1/2;
+  align-self: start;
+}
+.gamePlayActionPlayer .player-move {
   width: 100px;
   height: 100px;
-  padding: 25px;
+  margin: 10px;
+  padding: 15px;
   border: 5px solid silver;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.game .player-move > img {
+.gamePlayActionPlayer .player-move:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 20px silver;
+}
+.gamePlayActionPlayer .player-move > img {
   width: 100%;
+}
+.gamePlayActionComputer {
+  grid-column: 2/3;
+  justify-self: left;
+  align-self: start;
+}
+.gamePlayActionComputer img {
+  height: 425px;
 }
 .game .gamePlayComputer > img {
   /* transform: rotateY(180deg); */

@@ -20,12 +20,12 @@
 </head>
 
 <body>
+    <h1>Rock - Paper - Scissors</h1>
+    <h2>(Disney Edition)</h2>
 
     <!-- ========================================================================== -->
     <form class="game">
 
-        <h1>Rock, Paper, Scissors</h1>
-        <h2>(Disney Edition)</h2>
 
         <section id="gameSetup" class="section gameSetup">
             <h2>Number of Rounds</h2>
@@ -59,44 +59,42 @@
         </section>
 
 
-        <!-- *********************************************************************************
-            The gameplay area (where the fun starts). Will not be visible until the player
+        <!-- ************************************************************************
+            *********
+            The game play area (where the fun starts). Will not be visible until the player
             hits the start button!
         -->
         <section id="gamePlay" class="section gamePlay">
 
-            <!--  -->
+            <!-- show current progress of game -->
             <div class="gamePlayStatus">
 
                 <!-- show how many rounds are already played -->
                 <p id="lblGameProgress">&nbsp;</p>
 
-                <!-- show how many rounds are already played -->
+                <!-- show the points for player and computer -->
                 <p>Player</p>
                 <p>-</p>
                 <p>Mickey</p>
                 <p id="lblPlayerPoints">0</p>
                 <p>-</p>
                 <p id="lblComputerPoints">0</p>
-
-
-
             </div>
 
-            <div>
-                <div class="gamePlayPlayer">
+            <div class="gamePlayAction">
+                <div class="gamePlayActionPlayer">
                     <div class="player-move" onclick="makeMove('rock')">
-                        <img src="assets/img/disney-rock-left.png" alt="rock">
+                        <img src="assets/img/disney-rock-left-colored.png" alt="rock">
                     </div>
                     <div class="player-move" onclick="makeMove('paper')">
-                        <img src="assets/img/disney-paper-left.png" alt="paper">
+                        <img src="assets/img/disney-paper-left-colored.png" alt="paper">
                     </div>
                     <div class="player-move" onclick="makeMove('scissors')">
-                        <img src="assets/img/disney-scissors-left.png" alt="scissors">
+                        <img src="assets/img/disney-scissors-left-colored.png" alt="scissors">
                     </div>
                 </div>
-                <div class="gamePlayComputer">
-                    <img src="assets/img/mickey-mouse.png" alt="">
+                <div class="gamePlayActionComputer">
+                    <img id="imgComputerMove" src="assets/img/mickey-mouse.png" alt="">
                 </div>
             </div>
 

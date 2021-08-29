@@ -1,3 +1,12 @@
+// constant definitions for visibility (improves readability of code)
+const hidden = false;
+const visible = true;
+
+// constant definitions for the moves
+const rock = 0;
+const paper = 1;
+const scissors = 2;
+
 // constant definitions for UI container elements
 const gameSetup = document.getElementById('gameSetup');
 const gamePlay = document.getElementById('gamePlay');
@@ -9,14 +18,7 @@ const lblGameProgress = document.getElementById('lblGameProgress');
 const lblPlayerPoints = document.getElementById('lblPlayerPoints');
 const lblComputerPoints = document.getElementById('lblComputerPoints');
 
-// constant definitions for the moves
-const rock = 0;
-const paper = 1;
-const scissors = 2;
-
-// constant definitions for visibility (improves readability of code)
-const hidden = false;
-const visible = true;
+const imgComputerMove = document.getElementById('imgComputerMove');
 
 // variable definitions for the game
 let maxRounds = 5;
@@ -29,13 +31,20 @@ let computerPoints = 0;
 let playerMoves = [1, 1, 1];
 
 
-
+//****************************************************************************
 initialize();
 function initialize() {
 
     document.getElementById('rbRounds5').checked = true;
+    showGameSetup();
+}
+
+
+//****************************************************************************
+function showGameSetup() {
 
     // first setup rounds ...
+    document.body.style.background = "url('assets/img/background-mickey.png') top left/cover no-repeat"
     showHideElement(gameSetup, visible);
     showHideElement(gamePlay, hidden);
 }
@@ -44,11 +53,8 @@ function initialize() {
 //****************************************************************************
 function checkChanged(numberFieldEnabled) {
 
-    console.log(numberFieldEnabled);
-
     numCustomRounds.disabled = !numberFieldEnabled;
 }
-
 
 
 //****************************************************************************
@@ -56,12 +62,21 @@ function checkChanged(numberFieldEnabled) {
 function startGame() {
 
     maxRounds = getNumberOfRounds();
-    playedRounds = 0;
+    playedRounds = 1;
     playerPoints = 0;
     computerPoints = 0;
 
+    document.body.style.background = "url('assets/img/background.png') top left/cover no-repeat"
+
     showHideElement(gameSetup, hidden);
     showHideElement(gamePlay, visible);
+
+    lblGameProgress.innerHTML = `Round ${playedRounds} of ${maxRounds}`;
+
+    lblPlayerPoints.innerHTML = playerPoints;
+    lblComputerPoints.innerHTML = computerPoints;
+
+    imgComputerMove.src = 'assets/img/mickey-mouse.png'
 }
 
 
@@ -84,11 +99,23 @@ function getNumberOfRounds() {
 //****************************************************************************
 function makeMove(playerMove) {
 
-    let result = 0;
+    let result = 0; computerPoints
 
     playerMove = eval(playerMove);
 
     let computerMove = getComputerMove();
+    console.log(computerMove);
+
+    if (computerMove == rock) {
+        imgComputerMove.src = 'assets/img/mickey-mouse-rock.png'
+    } else if (computerMove == paper) {
+        imgComputerMove.src = 'assets/img/mickey-mouse-paper.png'
+    } else if (computerMove == scissors) {
+        imgComputerMove.src = 'assets/img/mickey-mouse-scissors.png'
+    } else {
+        imgComputerMove.src = 'assets/img/mickey-mouse.png'
+    }
+
 
     switch (true) {
         case (playerMove == computerMove):
@@ -118,8 +145,7 @@ function makeMove(playerMove) {
     if (result != 0) result > 0 ? playerPoints++ : computerPoints++;
 
     // remember player's move
-    playerMoves[playerMove]++;
-
+    // playerMoves[playerMove]++;
 
     // increase the number of played rounds    
     playedRounds++;
@@ -134,7 +160,7 @@ function getComputerMove() {
     let computerMove;
 
     // a factor to make the result more 'accurate'
-    let factor = 1000;
+    let factor = 1;
 
     // try to detect some 'possible preferences'
     let sum = factor * (
@@ -170,7 +196,7 @@ function getComputerMove() {
 
 
 //****************************************************************************
-function showResult(result) {
+async function showResult(result) {
     // a simple output:
     switch (result) {
         case -1: console.log("Computer wins!"); break;
@@ -178,32 +204,28 @@ function showResult(result) {
         case 1: console.log("Player wins!"); break;
     }
 
-    lblGameProgress.innerHTML = `Round ${playedRounds}`;
+    lblGameProgress.innerHTML = `Round ${playedRounds} of ${maxRounds}`;
+
     lblPlayerPoints.innerHTML = playerPoints;
     lblComputerPoints.innerHTML = computerPoints;
 
     // game hasn't ended...
-    if (playedRounds < maxRounds) return;
+    if (playedRounds <= maxRounds) return;
 
-    let text = 'Draw';
     // TODO: show final game result
-    if (playerPoints != computerPoints) text = playerPoints > computerPoints ? 'Player wins!' : 'Computer wins!';
+    let text = "it's a Draw!";
+    if (playerPoints != computerPoints)
+        text = playerPoints > computerPoints ? 'Player has won!' : 'Mickey has won!';
 
-    alert(`Game ended, ${text}`)
+    lblGameProgress.innerHTML = `After ${maxRounds} Rounds ${text}`;
 
-    showEndGame();
-
-
-}
-
-
-//****************************************************************************
-function showEndGame() {
+    // wait 10 secs to show the setup screen again
+    await sleep(10000);
 
     // finally show the setup screen again
-    showHideElement(gameSetup, visible);
-    showHideElement(gamePlay, hidden);
+    showGameSetup();
 }
+
 
 //****************************************************************************
 function resetGame() {
@@ -236,11 +258,20 @@ function showHideElement(element, isVisible) {
 }
 
 
-
-
-
-
-
+//********************************************************************************************
+// function sleep(milliseconds): suspend execution of the javascript code for the given time
+// Important: this function has to be called using await, otherwise the excution of the code
+//            continues immediately. If this function is called within another function use 
+//            async for the calling function!
+// Sample: 
+// async function callingFunction() {
+//     console.log('before sleep()');
+//     await sleep(5000);
+//     console.log('after sleep()');
+// }
+function sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
 
 
 //****************************************************************************
